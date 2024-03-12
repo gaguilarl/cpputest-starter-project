@@ -2,7 +2,7 @@
 SILENCE = @
 
 #---- Outputs ----#
-COMPONENT_NAME = your
+COMPONENT_NAME = platform2027
 
 #--- Inputs ----#
 PROJECT_HOME_DIR = .
@@ -24,8 +24,8 @@ endif
 # SRC_DIRS specifies directories containing
 # production code C and CPP files.
 #
-SRC_FILES += example-src/Example.c
-SRC_DIRS += example-platform
+P2027_SRC_DIR = ../../platform2027/source/mcu
+SRC_DIRS += $(P2027_SRC_DIR)/application/source/CddCommonSpi
 
 # --- TEST_SRC_FILES and TEST_SRC_DIRS ---
 # Test files are always included in the build.
@@ -36,13 +36,11 @@ SRC_DIRS += example-platform
 # TEST_SRC_FILES specifies individual test files to build.
 # TEST_SRC_DIRS, builds everything in the directory
 
-TEST_SRC_FILES +=
-TEST_SRC_DIRS += tests
-TEST_SRC_DIRS += tests/io-cppumock
-TEST_SRC_DIRS += tests/printf-spy
-
-#	tests/example-fff \
-#	tests/fff \
+P2027_TEST_DIR = tests/platform2027/application/source
+TEST_SRC_FILES += tests/AllTests.cpp
+TEST_SRC_DIRS += $(P2027_TEST_DIR)/CddCommonSpi
+#TEST_SRC_DIRS += tests/io-cppumock
+#TEST_SRC_DIRS += tests/printf-spy
 
 # --- MOCKS_SRC_DIRS ---
 # MOCKS_SRC_DIRS specifies a directories where you can put your
@@ -56,12 +54,12 @@ CPPUTEST_USE_EXTENSIONS = Y
 # INCLUDE_DIRS are searched in order after the included file's
 # containing directory
 INCLUDE_DIRS += $(CPPUTEST_HOME)/include
-INCLUDE_DIRS += $(CPPUTEST_HOME)/include/Platforms/Gcc
 INCLUDE_DIRS += example-include
 INCLUDE_DIRS += example-fff
 INCLUDE_DIRS += tests/exploding-fakes
 INCLUDE_DIRS += tests/fff
-
+INCLUDE_DIRS += $(P2027_SRC_DIR)/application/source/CddCommonSpi
+INCLUDE_DIRS += $(P2027_SRC_DIR)/common/PlatformFunctions
 
 # --- CPPUTEST_OBJS_DIR ---
 # CPPUTEST_OBJS_DIR lets you control where the
